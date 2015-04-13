@@ -1,0 +1,37 @@
+<%= form_for(@emptest) do |f| %>
+  <% if @emptest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@emptest.errors.count, "error") %> prohibited this emptest from being saved:</h2>
+
+      <ul>
+      <% @emptest.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ecode %><br>
+    <%= f.number_field :ecode %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :shift %><br>
+    <%= f.text_field :shift %>
+  </div>
+  <div class="field">
+    <%= f.label :sintime %><br>
+    <%= f.time_select :sintime %>
+  </div>
+  <div class="field">
+    <%= f.label :aintime %><br>
+    <%= f.time_select :aintime %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

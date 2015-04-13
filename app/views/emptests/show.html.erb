@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Ecode</th>
+      <th>Name</th>
+      <th>Shift</th>
+      <th>Sintime</th>
+      <th>Aintime</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  
+      <tr>
+        <td><%= @emptest.ecode %></td>
+        <td><%= @emptest.name %></td>
+        <td><%= @emptest.shift %></td>
+        <td><%= @emptest.sintime %></td>
+        <td><%= @emptest.aintime %></td>
+      </tr>
+  </tbody>
+</table>
+<%= link_to 'Edit', edit_emptest_path(@emptest) %> |
+<%= link_to 'Back', emptests_path %>
+

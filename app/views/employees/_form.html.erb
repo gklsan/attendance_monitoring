@@ -1,0 +1,11 @@
+<%= form_for(@employee) do |f| %>
+    
+    <div class= "form-group" >
+        <b> <%= f.label :name, :class => "labelbox" %> </b> 
+        <%= f.text_field :name, :class => "textbox" %>
+    </div>
+
+    <br>
+    <br>  
+        <%= f.submit :class => 'all-button'%>
+   <% end %>

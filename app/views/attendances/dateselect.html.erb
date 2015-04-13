@@ -1,0 +1,113 @@
+<h1>Employee Attendance</h1>
+
+<%= form_tag dateselect_attendances_path, multipart: true, class: "form-inline" do %>
+	
+	    <p class = "custom-select"> <b> From </b> <%=  date_field_tag :fromdate %>
+	    <b> To </b> <%= date_field_tag :todate, Date.today %> </p>
+	    
+	    
+	    
+	    <p class = "custom-select">
+	    <% empnames = Employee.all.map{|data| [data.name]} %>
+	    <%= select_tag(:empname, options_for_select(empnames), :class => "selectbox", prompt: "Pls select the Employee", :onclick => "this.form.submit();") %> 
+	 	</p> <p  align = "center"> OR </p>
+
+	 	<p class = "custom-select">
+	 	<label class="labelbox">
+	 	<%= radio_button_tag :selectdata, 'alldata',false, :onclick => "this.form.submit();"%> View All
+	 	<%= radio_button_tag :selectdata, 'leavedata', false, :onclick => "this.form.submit();" %> View Leave Details	
+	 	</label>
+	 	</p> 	
+
+ 	
+<% end %>
+
+
+	<% if @empselect != nil %>
+	<% begin %>
+=========================================================================================================
+	<h2> Attendance details from <%= Date.parse(@fromdate).strftime('%d-%m-%Y') %> to <%= Date.parse(@todate).strftime('%d-%m-%Y') %> of <%=params[:empname] %></h2>
+	<table class="table" border="1">
+		<tr class = "table_header">
+			<th>Date</th>
+			<th>InTime</th>
+			<th>OutTime</th>
+		  	<th>TotalWorkingHour</th>
+		  	<th>Status</th>
+		</tr>
+
+	  	<% @empselect.each do |dateselect| %>
+			<tr >
+				<td align = "center" ><%= dateselect.date.strftime("%d-%m-%Y") %> </td>
+					
+				<% intime = dateselect.intime.blank?? "-" : dateselect.intime.strftime("%H:%M") %>
+					<td align = "center"><%= intime  %></td>
+					
+				<% outtime = dateselect.outtime.blank?? "-" : dateselect.outtime.strftime("%H:%M") %>
+					<td align = "center"><%= outtime %></td>
+
+				<% workinghour = dateselect.workinghour.blank?? "-" : dateselect.workinghour.strftime("%H:%M") %>				 			
+					<td align = "center"><%= workinghour %> </td>
+				  
+				<% if dateselect.status == "Absent" %>
+					<td class = "absent" align = "center"> <%= dateselect.status %> </td>
+				<% else %>
+					<td align = "center"> <%= dateselect.status %> </td>
+				<% end %>
+			</tr>
+		<% end%>
+	</table>
+	<br>
+ 	<% rescue %>
+ 		<%= flash[:notice] ="Pls Enter the From and To date ." %>
+<% end %>
+
+	<% elsif @dateselect != nil %>
+=========================================================================================================
+<% begin %>
+	<h2> Attendance details from <%= Date.parse(@fromdate).strftime('%d-%m-%Y') %> to <%= Date.parse(@todate).strftime('%d-%m-%Y') %> </h2>
+
+	<table class="table" border="1">
+		<tr class = "table_header">
+			<th>EmpId</td>
+			<th>Name </td>
+			<th>Date</th>
+			<th>InTime</th>
+			<th>OutTime</th>
+		  	<th>TotalWorkingHour</th>
+		  	<th>Status</th>
+		</tr>
+
+	  	<% @dateselect.each do |dateselect| %>
+			<tr >
+				<td align = "center"><%= dateselect.employee_id %></td>
+
+				<td><%= dateselect.name %></td>
+
+				<td align = "center" ><%= dateselect.date.strftime("%d-%m-%Y") %> </td>
+					
+				<% intime = dateselect.intime.blank?? "-" : dateselect.intime.strftime("%H:%M") %>
+					<td align = "center"><%= intime  %></td>
+				
+				<% outtime = dateselect.outtime.blank?? "-" : dateselect.outtime.strftime("%H:%M") %>
+					<td align = "center"><%= outtime %></td>
+
+				<% workinghour = dateselect.workinghour.blank?? "-" : dateselect.workinghour.strftime("%H:%M") %>				 			
+			  		<td align = "center"><%= workinghour %> </td>
+				  	
+			  	<% if dateselect.status == "Absent" %>
+			  		<td class = "absent" align = "center"> <%= dateselect.status %> </td>
+			  	<% else %>
+			  		<td align = "center"> <%= dateselect.status %> </td>
+			  	<% end %>
+			</tr>
+		<% end%>
+	</table>
+	<br>
+	 	<% rescue %>
+ 		<%= flash[:notice] ="Pls Enter the From and To date ." %>
+<% end %>
+<% end %>
+
+<button class = 'all-button'><%= link_to attendances_path do %>
+	<i class="fa fa-home fa-2x"></i> <%end %>

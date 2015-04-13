@@ -1,0 +1,24 @@
+<h1>Employee Attendance</h1> 
+
+<%= form_tag multipart: true, class: "form-inline" do %>
+	
+    <p class = "custom-select"> <b> From </b> <%=  date_field_tag :fromdate %>
+    <b> To </b> <%= date_field_tag :todate,Date.today %> </p>
+    
+    
+    <p class = "custom-select">
+    <% empnames = Employee.all.map{|data| [data.name]} %>
+    <%= select_tag(:empname, options_for_select(empnames), :class => "selectbox", prompt: "Pls select the Employee") %>
+ 	</p>
+
+ 	<p class = "custom-select">
+ 	<label class="labelbox">
+ 	<%= radio_button_tag :selectdata, 'alldata' %> View All
+ 	<%= radio_button_tag :selectdata, 'leavedata' %> View Leave Details	
+ 	</label>
+ 	</p>
+ 	
+ 	<p class = "custom-select">
+      <%= submit_tag "Generate", class:"form-button" %> 
+    </p>
+<% end %>

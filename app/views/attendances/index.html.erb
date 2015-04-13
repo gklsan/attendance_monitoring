@@ -1,0 +1,47 @@
+<div class = "upload_form">
+        <h1> Upload Attendance </h1>
+        <%= form_tag upload_attendances_path, multipart: true do %>         
+            <%= file_field_tag :file %>
+            <%= submit_tag 'Upload Attendance', class:"form-button" %>
+        <% end %>
+</div>
+
+<br>
+
+<button class = "form-button" > <%= link_to 'View Attendance Details',:action=>"dateselect", :controller=>"attendances" %> </button>
+
+<br>
+
+<h1> Listing Employee </h1>
+<table class="table" border="1"}>
+  <tr class = "table_header">
+    <th> Id</th>
+    <th> Name </th>    
+    <th> Edit </th>    
+    <th> Destroy </th>   
+  </tr>
+
+  <% @employees.each do |emp| %>
+  
+  <tr>
+    <td> <%= emp.id %> </td>
+    <td> <%= emp.name %> </td>    
+    <td align="center"> <%= link_to edit_employee_path(emp) do %>
+          <i class="fa fa-pencil-square-o fa-2x"></i>
+          <%end %>
+    </td>
+    <td align="center"> <%= link_to emp, method: :delete, data: { confirm: 'Are you sure?' } do %>
+      <i class="fa fa-trash-o fa-2x"></i>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
+<br>
+
+<button class = "form-button" > <%= link_to 'New Employee', new_employee_path %> </button>
+<br><br>
+
+
+

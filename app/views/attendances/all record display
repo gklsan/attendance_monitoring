@@ -1,0 +1,165 @@
+<table class="table" border="1">
+	<tr class = "table_header">
+		<th>EmpId</td>
+		<th>Name </td>
+		<th>Date</th>
+		<th>InTime</th>
+		<th>OutTime</th>
+	  	<th>TotalWorkingHour</th>
+		
+	</tr>
+
+	<% emp = Employee.joins(:attendances).select('name,employee_id, date, intime, outtime').order('date') %>
+		<% emp.each do |val| %>
+		<tr class = table_body>
+			<td><%= val.employee_id %></td>
+			<td><%= val.name %></td>
+			<td><%= val.date.strftime("%d-%m-%Y") %> </td>
+			<% intime = val.intime.blank?? "AB" : val.intime.strftime("%H:%M:%S") %>
+			<td><%= intime  %></td>
+			<% outtime = val.outtime.blank?? "AB" : val.outtime.strftime("%H:%M:%S") %>
+			<td><%= outtime %></td>
+
+		  	<% if val.intime == nil || val.outtime == nil %>
+			  <td> <%= " AB" %></td>
+			<% else %>
+			   	<% workinghour = Time.diff(val.intime,val.outtime)	%>
+		  		<td> <%= workinghour[:diff] %></td>
+			<% end %>
+		
+		</tr>
+		<% end%>
+		
+	
+	</table>
+
+
+
+
+
+
+
+
+
+
+<%= form_tag {:controller => 'attendance' },multipart: true, class: "form-inline" do %>
+
+  	  <p> <b> From </b> <%= date_field_tag :fromdate, params[:fromdate] %>
+	  <b> To </b> <%= date_field_tag :todate, params[:todate] %>
+	  <%= submit_tag "Find", class:"form-button" %> </p>
+
+<% end %>
+
+
+
+
+
+<button class = "form-button" > <%= link_to 'New Employee', new_employee_path %> </button>
+
+<button class = "form-button" > <%= link_to 'Show Attendance Details', dateselect_attendances_path %> </button>
+
+
+
+<br><br>
+
+
+#7698ff
+
+
+
+element.style {
+}
+attendancesmedia="all"
+.container {
+position: fixed;
+background-color: rgb(219, 212, 191);
+width: 100%;
+z-index: 5;
+margin: -3% 26% 13% 1%;
+border: 1px solid;
+padding: -6px;
+}
+
+
+
+
+input[type="submit"], input[type="button"], button {
+	background-color: #D3DCE0;
+	border: 1px solid #787878;
+	cursor: pointer;
+	font-size: 1.2em;
+	font-weight: 600;
+	padding: 7px;
+	margin-right: 8px;
+}
+
+.field {
+	margin-top: 2em;
+	padding: 0 5%;
+	 .actions {
+  		float: right;
+		width: 86%;
+    }
+	input[type="text"] {
+		width: 72%;
+		margin-right: 2%;
+		display: inline-block;
+		outline: none;
+		background: rgba(250,250,250,.4);
+		border: none;
+		height: 40px;
+		border-radius: 4px;
+		padding: 1em 2em;
+	}
+	input[type="submit"], input[type="button"], button {
+		background-color: #D3DCE0;
+		border: 1px solid #787878;
+		cursor: pointer;
+		font-size: .2em;
+		font-weight: 300;
+		padding: 7px;
+		margin-right: 8px;
+	}
+	&:hover {
+		 background: #d1d1d1;
+	}
+}
+
+
+
+#form {
+	margin-top: 2em;
+	padding: 0 5%;
+	input[type="text"] {
+		width: 72%;
+		margin-right: 2%;
+		display: inline-block;
+		outline: none;
+		background: rgba(250,250,250,.4);
+		border: none;
+		height: 40px;
+		border-radius: 4px;
+		padding: 1em 2em;
+	}
+	input[type="submit"] {
+		float: right;
+		box-decoration-break: slice;
+		background: rgba(250,250,250,.4);
+		outline: none;
+		border: none;
+		height: 40px;
+		border-radius: 4px;
+		width: 25%;
+		display: inline-block;
+		transition: all .4s ease-in-out;
+		cursor: pointer;
+		&:hover {
+			 background: #d1d1d1;
+		}
+	}
+}
+
+
+
+
+

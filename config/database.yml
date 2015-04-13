@@ -1,0 +1,30 @@
+
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: attendance_monitoring_development
+  pool: 5
+  username: docker
+  password: docker
+  host: db
+
+  
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: attendance_monitoring_test
+  pool: 5
+  username: docker
+  password: docker
+  host: db
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: attendance_monitoring_production
+  pool: 5
+  username: attendance_monitoring
+  password:
+
+
+

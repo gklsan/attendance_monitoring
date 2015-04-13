@@ -1,0 +1,9 @@
+<h1>Admin Page</h1>
+
+<h3>Welcome Admin</h3>
+
+  <%= form_tag upload_testemps_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag 'Upload File', class:"form-button" %>
+  <% end %>
+
